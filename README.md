@@ -4,7 +4,7 @@ Script recopilatorio para links de las listas de canciones de Youtube.
 
 ## Explicación breve
 
- - Ejecuta desde consola del sistema: `git clone {link de git} .`
+ - Ejecuta desde consola del sistema: `git clone https://github.com/allnulled/youtube-list-farmer.git .`
  - Ejecuta desde consola del sistema: `npm install`
  - Ejecuta desde una página de lista de vídeos de Youtube y con la consola del navegador el fichero `./script.js`.
  - Copia el `JSON` imprimido por consola.
@@ -21,7 +21,7 @@ Script recopilatorio para links de las listas de canciones de Youtube.
 Con la consola:
 
 ```sh
-~$ git clone {link de git} .
+~$ git clone https://github.com/allnulled/youtube-list-farmer.git .
 ~$ npm install
 ```
 
