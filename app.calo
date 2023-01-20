@@ -1,0 +1,106 @@
+Ejecutable como documento HTML5
+    con autor allnulled
+    con nombre app-por-defecto
+    con versión 0.0.1
+<head>
+    <title>Música</title>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      
+    </style>
+</head>
+<body><div id="app"></div></body>.
+
+importo api nativa.
+
+creo autores como [
+    "biblioteca/Beny Jr.json",
+    "biblioteca/Crie930.json",
+    "biblioteca/Dirty Porko.json",
+    "biblioteca/El Jincho.json",
+    "biblioteca/Eladio Carrion.json",
+    "biblioteca/Elams.json",
+    "biblioteca/GAZO.json",
+    "biblioteca/Guirri Mafia.json",
+    "biblioteca/Houari.json",
+    "biblioteca/JC Reyes.json",
+    "biblioteca/JUL.json",
+    "biblioteca/KOFS.json",
+    "biblioteca/KREAM DJM.json",
+    "biblioteca/Lopes.json",
+    "biblioteca/Lynda Sherazade.json",
+    "biblioteca/MHD.json",
+    "biblioteca/Morad.json",
+    "biblioteca/Moubarak.json",
+    "biblioteca/Naps.json",
+    "biblioteca/Omah Lay.json",
+    "biblioteca/SCH.json",
+    "biblioteca/Sofiane.json",
+    "biblioteca/Solda.json",
+    "biblioteca/Soso maness.json",
+    "biblioteca/TK13.json",
+    "biblioteca/Victony.json"
+].
+
+creo PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
+  <div class="PaginaDeInicio Component">
+    <h2>Música</h2>
+    <ul>
+        <li v-for="(cancion, cancionIndex) in canciones" v-bind:key="'item-de-cancion-' + cancionIndex">
+            <a :href="cancion.link + '&autoplay=1'" target="_blank"><b>[ {{ cancionIndex }}. {{ cancion.autor }} ]</b> {{ cancion.name }}</a>
+        </li>
+    </ul>
+  </div>
+} con lógica {
+    retorno {
+        método data donde {
+            retorno {
+                propiedad canciones como [].
+            }.
+        }.
+        método asíncrono mounted donde {
+            desde 0 hasta autores.length {
+                creo url_de_autor como autores[index].
+                creo respuesta como asíncronamente una petición http 
+                    con url url_de_autor
+                    con método "GET"
+                    con cuerpo {}
+                    con cabeceras {}.
+                asigno this.canciones como this.canciones.concat(respuesta.data.map(una función con (item) donde retorno item extendido por { autor: url_de_autor.split("/").pop().replace(".json", "") })).
+            }.
+        }.
+    }.
+}.
+
+creo App como una aplicación vue2 con nombre "App" con rutas [{
+    propiedad path como "/".
+    propiedad name como "Home".
+    propiedad component como PaginaDeInicio.
+    propiedad props como {}.
+}] con traducciones {
+    propiedad es como {}.
+    propiedad en como {}.
+    propiedad ca como {}.
+} con plantilla {
+  <div class="App Component Castelog-app">
+    <router-view></router-view>
+  </div>
+} con estilos {
+    html {}
+    body {}
+    .Component {}
+    .App {}
+} con lógica {
+  retorno {
+    método data donde {
+      retorno {
+        
+      }.
+    }.
+    propiedad methods como {}.
+    propiedad watch como {}.
+    método beforeMount donde {}.
+    método mounted donde {}.
+  }.
+} montada en "#app".
