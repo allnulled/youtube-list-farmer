@@ -1,6 +1,4 @@
 
-// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"app-por-defecto","version":"0.0.1","contenido":{"head":"<head>\n    <title>Música</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <style>\n    html {\n      background-color: #333;\n      color: white;\n    }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
-
 
 
 //Included:lib/000.inicializacion.part.js
@@ -32784,84 +32782,60 @@ $plantilla += "\n        .imagen_de_fichero {\n            width: 100%;\n       
 ////////////////////////////////////////// Aquí termina el script de Castelog //
 ////////////////////////////////////////////////////////////////////////////////
 
-const PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio", "<div class=\"PaginaDeInicio Component\">"
- + "    <h2>Música</h2>"
- + "    <ul>"
- + "        <li v-for=\"(cancion, cancionIndex) in canciones\" v-bind:key=\"'item-de-cancion-' + cancionIndex\">"
- + "            <a :href=\"cancion.link + '&autoplay=1'\" target=\"_blank\"><b>[ {{ cancionIndex }}. {{ cancion.autor }} ]</b> {{ cancion.name }}</a>"
- + "        </li>"
- + "    </ul>"
- + "  </div>", function(component) {return { data() {try {
-return { canciones:[  ]
-};
-} catch(error) {
-console.log(error);
-throw error;
+const fs = require("fs");
+const url = require("url");
+const path = require("path");
+const cors = require("cors");
+express = require("express");
+bodyParser = require("body-parser");
+const ruta_de_todos_los_autores = __dirname + "/autores.json";
+const PORT = 9095;
+const app = express(  );
+app.use( cors(  ) );
+app.use( bodyParser.urlencoded( { extended:true
+} ) );
+app.use( bodyParser.json( { extended:true
+} ) );
+app.use( function( peticion,
+respuesta ) {try {
+const datos = peticion.body;
+const autor = decodeURIComponent( peticion.url ).replace( new RegExp( "^\\/+" ),
+"" );
+const ruta_de_autor = path.join( "biblioteca",
+autor + ".json" );
+console.log(ruta_de_autor);
+const autores_actuales = JSON.parse( fs.readFileSync( ruta_de_todos_los_autores ).toString(  ) );
+if(autores_actuales.indexOf(ruta_de_autor) !== -1) {
+console.log("Rechazados links de autor: " + ruta_de_autor);
+return respuesta.json( { autor:ruta_de_autor,
+links:datos.length,
+mensaje:"El autor ya está en la lista!"
+} );
 }
-
-},
-async mounted() {try {
-const respuesta_autores = (await Castelog.metodos.una_peticion_http("/autores.json", "GET", { 
-}, { 
-}, null, null));
-const { data: autores
-} = respuesta_autores;
-for(let index = 0; index < autores.length; index++) {const url_de_autor = autores[ index ];
-const respuesta = (await Castelog.metodos.una_peticion_http(url_de_autor, "GET", { 
-}, { 
-}, null, null));
-this.canciones = this.canciones.concat( respuesta.data.map( function( item ) {try {
-return Object.assign(item, { autor:url_de_autor.split( "/" ).pop(  ).replace( ".json",
-"" )
+autores_actuales.push(ruta_de_autor)
+fs.writeFileSync( ruta_de_todos_los_autores,
+JSON.stringify(autores_actuales, null, 2),
+"utf8" );
+fs.writeFileSync( ruta_de_autor,
+JSON.stringify(datos, null, 2),
+"utf8" );
+console.log("Aceptados links de autor: " + ruta_de_autor);
+return respuesta.json( { autor:ruta_de_autor,
+links:datos.length,
+mensaje:"OK!"
 } );
 } catch(error) {
 console.log(error);
 throw error;
 }
 
-} ) );}
+} );
+app.listen( PORT,
+function() {try {
+console.log("Servidor escuchando en: http://127.0.0.1:" + PORT);
 } catch(error) {
 console.log(error);
 throw error;
 }
 
-}
-};}, null);
-const App = Castelog.metodos.una_aplicacion_vue2(
-  "App",
-  "<div class=\"App Component Castelog-app\">"
- + "    <router-view></router-view>"
- + "  </div>",
-  function(component) {return { data() {try {
-return { 
-};
-} catch(error) {
-console.log(error);
-throw error;
-}
-
-},
-methods:{ 
-},
-watch:{ 
-},
-beforeMount() {
-},
-mounted() {
-}
-};},
-  "\"html {}\\n    body {}\\n    .Component {}\\n    .App {}\\n\", null", {},
-  [ { path:"/",
-name:"Home",
-component:PaginaDeInicio,
-props:{ 
-}
-} ],
-  { es:{ 
-},
-en:{ 
-},
-ca:{ 
-}
-},
-  "#app");
+} );

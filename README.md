@@ -55,6 +55,14 @@ Si usas Windows, me la pela. Pero solo tendrías que cambiar el formato `server.
 
 Una vez la consola te informe de la URL del servidor recién levantado, lo visitas con tu navegador favorito. Concretamente, tendrás que abrir el fichero `./app-por-defecto.0.0.1.html` con el navegador. Y ahí tendrás todos los links.
 
+## Truco
+
+Usa el script de `./script-greasemonkey.js` con el addon `Greasemonkey` o `Tampermonkey` para abreviar el copia-pega-ejecuta de la consola. Te aparecerá un botón arriba a la derecha siempre que entres en una página de Youtube.
+
+Si levantas el script de `./server-better.js`, te podrás enviar la info directamente con el botón de Youtube.
+
 ## Licencia
 
 Nada. A robar música se ha dicho.
+
+Sí, es un poco rollo. Pero tampoco está pensado para ser un script de larga duración, en tanto Youtube cambie el código fuente, ya no sirve. La alternativa es usar la API de Youtube. Si seguro que buscas por ahí, y hay aplicaciones web que te dejan hacer esto con clicks.

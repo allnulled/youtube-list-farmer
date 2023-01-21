@@ -7,41 +7,15 @@ Ejecutable como documento HTML5
     <meta charset="utf8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      
+    html {
+      background-color: #333;
+      color: white;
+    }
     </style>
 </head>
 <body><div id="app"></div></body>.
 
 importo api nativa.
-
-creo autores como [
-    "biblioteca/Beny Jr.json",
-    "biblioteca/Crie930.json",
-    "biblioteca/Dirty Porko.json",
-    "biblioteca/El Jincho.json",
-    "biblioteca/Eladio Carrion.json",
-    "biblioteca/Elams.json",
-    "biblioteca/GAZO.json",
-    "biblioteca/Guirri Mafia.json",
-    "biblioteca/Houari.json",
-    "biblioteca/JC Reyes.json",
-    "biblioteca/JUL.json",
-    "biblioteca/KOFS.json",
-    "biblioteca/KREAM DJM.json",
-    "biblioteca/Lopes.json",
-    "biblioteca/Lynda Sherazade.json",
-    "biblioteca/MHD.json",
-    "biblioteca/Morad.json",
-    "biblioteca/Moubarak.json",
-    "biblioteca/Naps.json",
-    "biblioteca/Omah Lay.json",
-    "biblioteca/SCH.json",
-    "biblioteca/Sofiane.json",
-    "biblioteca/Solda.json",
-    "biblioteca/Soso maness.json",
-    "biblioteca/TK13.json",
-    "biblioteca/Victony.json"
-].
 
 creo PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
   <div class="PaginaDeInicio Component">
@@ -60,6 +34,12 @@ creo PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plan
             }.
         }.
         método asíncrono mounted donde {
+            creo respuesta_autores como asíncronamente una petición http
+                con url "/autores.json"
+                con método "GET"
+                con cuerpo {}
+                con cabeceras {}.
+            desacoplo constantes { data como autores } a partir de respuesta_autores.
             desde 0 hasta autores.length {
                 creo url_de_autor como autores[index].
                 creo respuesta como asíncronamente una petición http 

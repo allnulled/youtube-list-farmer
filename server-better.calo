@@ -1,0 +1,41 @@
+importo api nativa.
+importo módulo es5 de ruta "fs" creando constante fs.
+importo módulo es5 de ruta "url" creando constante url.
+importo módulo es5 de ruta "path" creando constante path.
+importo módulo es5 de ruta "cors" creando constante cors.
+importo módulo es5 de ruta "express" creando express.
+importo módulo es5 de ruta "body-parser" creando bodyParser.
+
+creo ruta_de_todos_los_autores como __dirname + "/autores.json".
+creo PORT como 9095.
+creo app como express().
+hago app.use(cors()).
+hago app.use(bodyParser.urlencoded({ extended: true })).
+hago app.use(bodyParser.json({ extended: true })).
+hago app.use(una función con (peticion, respuesta) {
+    creo datos como peticion.body.
+    creo autor como decodeURIComponent(peticion.url).replace(una nueva RegExp("^\\/+"), "").
+    creo ruta_de_autor como path.join("biblioteca", autor + ".json").
+    imprimo ruta_de_autor.
+    creo autores_actuales como JSON.parse(fs.readFileSync(ruta_de_todos_los_autores).toString()).
+    si autores_actuales contiene valor ruta_de_autor {
+        imprimo "Rechazados links de autor: " + ruta_de_autor.
+        retorno respuesta.json({
+            autor: ruta_de_autor,
+            links: datos.length,
+            mensaje: "El autor ya está en la lista!"
+        }).
+    }.
+    apendizo ruta_de_autor en autores_actuales.
+    hago fs.writeFileSync(ruta_de_todos_los_autores, autores_actuales textualizado, "utf8").
+    hago fs.writeFileSync(ruta_de_autor, datos textualizado, "utf8").
+    imprimo "Aceptados links de autor: " + ruta_de_autor.
+    retorno respuesta.json({
+        autor: ruta_de_autor,
+        links: datos.length,
+        mensaje: "OK!"
+    }).
+}).
+hago app.listen(PORT, una función donde {
+    imprimo "Servidor escuchando en: http://127.0.0.1:" + PORT.
+}).

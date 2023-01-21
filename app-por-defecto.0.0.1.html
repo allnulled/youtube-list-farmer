@@ -3,10 +3,13 @@
     <meta charset="utf8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      
+    html {
+      background-color: #333;
+      color: white;
+    }
     </style>
 </head><body><div id="app"></div><script>
-// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"app-por-defecto","version":"0.0.1","contenido":{"head":"<head>\n    <title>Música</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <style>\n      \n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
+// [castelog:html5izable] ACTIVADO con: {"autor":"allnulled","nombre":"app-por-defecto","version":"0.0.1","contenido":{"head":"<head>\n    <title>Música</title>\n    <meta charset=\"utf8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <style>\n    html {\n      background-color: #333;\n      color: white;\n    }\n    </style>\n</head>","body":"<body><div id=\"app\"></div></body>"}}
 
 
 
@@ -32791,32 +32794,6 @@ $plantilla += "\n        .imagen_de_fichero {\n            width: 100%;\n       
 ////////////////////////////////////////// Aquí termina el script de Castelog //
 ////////////////////////////////////////////////////////////////////////////////
 
-const autores = [ "biblioteca/Beny Jr.json",
-"biblioteca/Crie930.json",
-"biblioteca/Dirty Porko.json",
-"biblioteca/El Jincho.json",
-"biblioteca/Eladio Carrion.json",
-"biblioteca/Elams.json",
-"biblioteca/GAZO.json",
-"biblioteca/Guirri Mafia.json",
-"biblioteca/Houari.json",
-"biblioteca/JC Reyes.json",
-"biblioteca/JUL.json",
-"biblioteca/KOFS.json",
-"biblioteca/KREAM DJM.json",
-"biblioteca/Lopes.json",
-"biblioteca/Lynda Sherazade.json",
-"biblioteca/MHD.json",
-"biblioteca/Morad.json",
-"biblioteca/Moubarak.json",
-"biblioteca/Naps.json",
-"biblioteca/Omah Lay.json",
-"biblioteca/SCH.json",
-"biblioteca/Sofiane.json",
-"biblioteca/Solda.json",
-"biblioteca/Soso maness.json",
-"biblioteca/TK13.json",
-"biblioteca/Victony.json" ];
 const PaginaDeInicio = Castelog.metodos.un_componente_vue2("PaginaDeInicio", "<div class=\"PaginaDeInicio Component\">"
  + "    <h2>Música</h2>"
  + "    <ul>"
@@ -32834,6 +32811,11 @@ throw error;
 
 },
 async mounted() {try {
+const respuesta_autores = (await Castelog.metodos.una_peticion_http("/autores.json", "GET", { 
+}, { 
+}, null, null));
+const { data: autores
+} = respuesta_autores;
 for(let index = 0; index < autores.length; index++) {const url_de_autor = autores[ index ];
 const respuesta = (await Castelog.metodos.una_peticion_http(url_de_autor, "GET", { 
 }, { 
