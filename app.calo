@@ -11,6 +11,12 @@ Ejecutable como documento HTML5
       background-color: #333;
       color: white;
     }
+    a {
+        color: white;
+    }
+    a:visited {
+        color: yellow;
+    }
     </style>
 </head>
 <body><div id="app"></div></body>.
