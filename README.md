@@ -1,68 +1,52 @@
 # youtube-list-farmer
 
-Script recopilatorio para links de las listas de canciones de Youtube.
+Scripts recopilatorios para links de las listas de canciones de Youtube.
 
-## Explicación breve
+## Uso
 
- - Ejecuta desde consola del sistema: `git clone https://github.com/allnulled/youtube-list-farmer.git .`
- - Ejecuta desde consola del sistema: `npm install`
- - Ejecuta desde una página de lista de vídeos de Youtube y con la consola del navegador el fichero `./script.js`.
- - Copia el `JSON` imprimido por consola.
- - Pégalo en un nuevo fichero `JSON` en la carpeta `./biblioteca`.
- - Añade el fichero a la lista de autores del script `./app.calo`. Luego compílalo con `castelog`.
- - Inicia el servidor ejecutando `sh server.sh` (Linux, cámbialo a `.bat` para Windows, si eso).
- - Abre la aplicación `app-por-defecto.0.0.1.html`, servida por el servidor (abrir el fichero en local no servirá), con el navegador.
- - Ya está, tendrás todos los links ahí.
-
-## Explicación extensa
-
-### 1. Descargar proyecto e instalar dependencias
-
-Con la consola:
+**Paso 1.** Descarga el proyecto e instala las dependencias, desde consola:
 
 ```sh
 ~$ git clone https://github.com/allnulled/youtube-list-farmer.git .
 ~$ npm install
 ```
 
-### 2. Visitar una página de listas de vídeos de Youtube
+**Paso 2.** Levanta el servidor local para ir pasándote los links desde Youtube a tu PC:
 
-Con el navegador, abre una página de lista de vídeos de Youtube.
+```sh
+~$ node server-better.js
+```
 
-### 3. Extraer links con script
+**Paso 3.** Levanta el servidor local para visitar la aplicación que muestra los links recopilados:
 
-Abre y copia el fichero `./script.js` del proyecto. Luego abre la consola del navegador, y pega el script.
-
-Luego ejecútalo. El script imprimirá por consola una lista de objetos en formato `JSON`. En él están todos los links de la lista.
-
-### 4. Añadir links a la biblioteca
-
-Crea un nuevo `JSON` en la carpeta del proyecto `./biblioteca`.
-
-Luego tienes que añadir el recurso `JSON` en el script del proyecto `./app.calo`, en la lista de `autores`.
-
-Aquí tendrías que compilar el fichero `./app.calo` con [`Castelog`](https://github.com/allnulled/castelog). Pero ahí no me meto, tú sabrás, ese proyecto está sin financiar, igual no te es fácil instalarlo porque apenas está documentado. La compilación te generará el fichero `./app-por-defecto.0.0.1.html`, que es la aplicación de links.
-
-### 5. Abre la aplicación de links
-
-Para acceder a la aplicación, primero tienes que iniciar el servidor. Desde la consola:
+Esto es, en Linux:
 
 ```sh
 ~$ sh server.sh
 ```
 
-Si usas Windows, me la pela. Pero solo tendrías que cambiar el formato `server.sh` a `server.bat` y darle dos clicks, y creo que debería encender el servidor igual.
+Y en Windows, doble click en el fichero `server.bat`.
 
-Una vez la consola te informe de la URL del servidor recién levantado, lo visitas con tu navegador favorito. Concretamente, tendrás que abrir el fichero `./app-por-defecto.0.0.1.html` con el navegador. Y ahí tendrás todos los links.
+Hecho esto, abre con tu navegador el link que se muestra por consola, y entra en el fichero `app-por-defecto.0.0.1.html`.
 
-## Truco
+**Paso 4.** Instala el addon de navegador `GreaseMonkey` o `TamperMonkey` (según si usas Firefox o Google Chrome).
 
-Usa el script de `./script-greasemonkey.js` con el addon `Greasemonkey` o `Tampermonkey` para abreviar el copia-pega-ejecuta de la consola. Te aparecerá un botón arriba a la derecha siempre que entres en una página de Youtube.
+**Paso 5.** Añade el script `script-greasemonkey.js` en los scripts de `GreaseMonkey`/`TamperMonkey`. Esto hará que aparezca un botón arriba a la derecha siempre que entres en Youtube.
 
-Si levantas el script de `./server-better.js`, te podrás enviar la info directamente con el botón de Youtube.
+**Paso 6.** Visita una página de Youtube que contenga una lista de vídeos. Son los links que tienen `&list=` en la URL.
+
+Cuando cliques en el botón de arriba a la derecha, el navegador enviará a tu servidor local (al del `server-better.js`) los links de los vídeos de la lista. 
+
+En la consola aparecerá el nombre del fichero en el que se han guardado. Te dirá también si han sido *aceptados* o *rechazados*, porque no acepta nombres repetidos.
+
+Hecho esto, refresca la página del paso 3. Deberían listarse los nuevos ficheros añadidos.
+
+## Nota del autor
+
+Sí, es un poco rollo. Pero tampoco está pensado para ser un script de larga duración, en tanto Youtube cambie el código fuente, ya no sirve. La alternativa es usar la API de Youtube. Si seguro que buscas por ahí, y hay aplicaciones web que te dejan hacer esto con clicks.
+
+De todos modos, está hecho para que, cuando Youtube cambie el código fuente de sus páginas, solo se tenga que actualizar el script de `script-greasemonkey.js`, y seguir funcionando todo igual.
 
 ## Licencia
 
 Nada. A robar música se ha dicho.
-
-Sí, es un poco rollo. Pero tampoco está pensado para ser un script de larga duración, en tanto Youtube cambie el código fuente, ya no sirve. La alternativa es usar la API de Youtube. Si seguro que buscas por ahí, y hay aplicaciones web que te dejan hacer esto con clicks.
